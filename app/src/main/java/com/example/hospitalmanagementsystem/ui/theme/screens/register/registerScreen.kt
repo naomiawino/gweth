@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -55,6 +56,7 @@ fun RegisterScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmpassword by remember { mutableStateOf("") }
+    var phonenumber by remember { mutableStateOf("") }
     val authViewModel: AuthViewModel= viewModel()
     val context = LocalContext.current
 
@@ -119,6 +121,14 @@ fun RegisterScreen(navController: NavController) {
 
                 )
                 OutlinedTextField(
+                    value = phonenumber,
+                    label = { Text(text = "Enter Phone Number" ) },
+                    onValueChange = { phonenumber = it },
+                    placeholder = { Text(text = "please enter phone number") },
+                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null) }
+
+                )
+                OutlinedTextField(
                     value = password,
                     label = { Text(text = "Enter Password") },
                     onValueChange = { password = it },
@@ -138,16 +148,18 @@ fun RegisterScreen(navController: NavController) {
                 Button(onClick = {authViewModel.signup(
                     username =username,
                     email=email,
+                    phonenumber=phonenumber,
                     password=password,
                     confirmpassword=confirmpassword,
                     navController = navController,
                     context = context)}
                 ) { Text(text = "Register")}
                 Row() {
-                    Text(text = "Already Registered?", color = Color.Blue, modifier = Modifier.clickable{navController.navigate(
-                        ROUTE_LOGIN
-                    )})
-                    Text(text = "Login Here", color = Color.Red)
+                    Text(text = "Already Registered?", color = Color.Blue, )
+                    Text(text = "Login Here", color = Color.Red,
+                        modifier = Modifier.clickable{navController.navigate(
+                            ROUTE_LOGIN
+                        )} )
                 }
 
             }

@@ -36,14 +36,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.hospitalmanagementsystem.R
+import com.example.hospitalmanagementsystem.data.AuthViewModel
 import com.example.hospitalmanagementsystem.navigation.ROUTE_LOGIN
 import com.example.hospitalmanagementsystem.navigation.ROUTE_REGISTER
 
@@ -53,6 +56,8 @@ fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmpassword by remember { mutableStateOf("") }
+    val authViewModel: AuthViewModel = viewModel()
+    val context = LocalContext.current
 
 
 
@@ -98,14 +103,14 @@ fun LoginScreen(navController: NavController) {
                     fontWeight = FontWeight.Bold,
                     color = Color.Blue
                 )
-                OutlinedTextField(
-                    value = username,
-                    label = { Text(text = "Enter Username") },
-                    onValueChange = { username = it },
-                    placeholder = { Text(text = "Please Enter Username") },
-                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) }
+//                OutlinedTextField(
+//                    value = username,
+//                    label = { Text(text = "Enter Username") },
+//                    onValueChange = { username = it },
+//                    placeholder = { Text(text = "Please Enter Username") },
+//                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) }
 
-                )
+//                )
                 OutlinedTextField(
                     value = email,
                     label = { Text(text = "Enter Your Email") },
@@ -123,21 +128,26 @@ fun LoginScreen(navController: NavController) {
 
                 )
 
-                OutlinedTextField(
-                    value = confirmpassword,
-                    label = { Text(text = "Confirm Pasword") },
-                    onValueChange = { confirmpassword = it },
-                    placeholder = { Text(text = "") },
-                    leadingIcon = { Icon(Icons.Default.Check, contentDescription = null) }
-                )
+//                OutlinedTextField(
+//                    value = confirmpassword,
+//                    label = { Text(text = "Confirm Pasword") },
+//                    onValueChange = { confirmpassword = it },
+//                    placeholder = { Text(text = "") },
+//                    leadingIcon = { Icon(Icons.Default.Check, contentDescription = null) }
+//                )
 
-                Button(onClick = {}
-                ) { Text(text = "Register")}
+                Button(onClick = {authViewModel.login(
+                    email=email,
+                    password=password,
+                    navController = navController,
+                    context = context)}
+                ) { Text(text = "Login")}
                 Row() {
-                    Text(text = "Already Registered?", color = Color.Blue,
-                        modifier = Modifier.clickable{ navController.navigate(ROUTE_REGISTER)}
+                    Text(text = "Don't have an account?", color = Color.Blue,
+
                     )
-                    Text(text = "Login Here", color = Color.Red)
+                    Text(text = "Login Here", color = Color.Red,
+                        modifier = Modifier.clickable{ navController.navigate(ROUTE_REGISTER)})
                 }
 
             }

@@ -4,6 +4,8 @@ package com.example.hospitalmanagementsystem.data
 
 import android.content.Context
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.hospitalmanagementsystem.models.UserModel
@@ -15,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class AuthViewModel:ViewModel() {
     private val auth: FirebaseAuth=FirebaseAuth.getInstance()
-    fun signup(username:String,email:String,password:String,confirmpassword:String,navController: NavController,context:Context){
+    fun signup(username:String,email:String,phonenumber: String,password:String,confirmpassword:String,navController: NavController,context:Context){
         if (username.isBlank() || email.isBlank() || password.isBlank() || confirmpassword.isBlank()){
             Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_LONG).show()
             return
@@ -28,7 +30,7 @@ class AuthViewModel:ViewModel() {
                 task ->
             if (task.isSuccessful){
                 val userId = auth.currentUser?.uid ?: ""
-                val user = UserModel(username = username, email = email, userId = userId)
+                val user = UserModel(username = username,phonenumber = phonenumber, email = email, userId = userId)
 
                 saveUserToDatabase(user,navController,context)
             }else{
@@ -71,4 +73,15 @@ class AuthViewModel:ViewModel() {
                 Toast.makeText(context,task.exception?.message ?: "Login failed",
                     Toast.LENGTH_LONG).show()
             }}}
-}
+    fun logout(navController: NavController,context: Context){
+        auth.signOut()
+        Toast.makeText(context,"Logout Successful",Toast.LENGTH_LONG).show()
+        navController.navigate(ROUTE_LOGIN){
+            popUpTo(ROUTE_DASHBOARD){inclusive=true}
+        }
+
+    }
+    }
+
+
+
