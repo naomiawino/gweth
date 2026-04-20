@@ -1,5 +1,6 @@
 package com.example.hospitalmanagementsystem.ui.theme.screens.patient
 
+
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -182,7 +183,12 @@ fun AddPatientScreen(navController: NavController){
                         imageUri,
                         name,
                         age,
-                        phone,illness, context, navController)
+                        phone,
+                        illness,
+                        gender,
+                        dateOfVisit,
+                        context,
+                        navController)
 
                 },
                 modifier = Modifier.fillMaxWidth(),

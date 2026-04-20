@@ -1,5 +1,7 @@
 package com.example.hospitalmanagementsystem.ui.theme.screens.register
 
+
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -99,7 +101,7 @@ fun LoginScreen(navController: NavController) {
                         .shadow(4.dp, CircleShape)
                 )
                 Text(
-                    text = "Register Here", fontSize = 32.sp,
+                    text = "Login Here", fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Blue
                 )
@@ -145,8 +147,8 @@ fun LoginScreen(navController: NavController) {
                 Row() {
                     Text(text = "Don't have an account?", color = Color.Blue,
 
-                    )
-                    Text(text = "Login Here", color = Color.Red,
+                        )
+                    Text(text = "Register Here", color = Color.Red,
                         modifier = Modifier.clickable{ navController.navigate(ROUTE_REGISTER)})
                 }
 
@@ -159,5 +161,4 @@ fun LoginScreen(navController: NavController) {
 @Composable
 fun LOginScreenPreview() {
     LoginScreen(rememberNavController())}
-
 
